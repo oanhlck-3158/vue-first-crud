@@ -1,25 +1,26 @@
-import apiClient from "./ApiClient";
-import type {Post} from "../types/PostType";
+import type {IPost} from "../types/PostType";
+import type { ICreatePost } from "@/views/CreatePostView.vue";
+import {http} from "../services/http";
 
 class PostDataService {
-  getAll(): Promise<any> {
-    return apiClient.get("/posts")
+  getAll = async():Promise<IPost[]> => {
+    return await http.get("/posts");
   }
 
-  get(id: number): Promise<any> {
-    return apiClient.get(`/posts/${id}`)
+  get = async(slug: string):Promise<IPost> => {
+    return await http.get(`/posts/${slug}`);
   }
 
-  create(post: Post): Promise<any> {
-    return apiClient.post("/posts", post)
+  create = async(post: ICreatePost):Promise<IPost> => {
+    return await http.post("/posts", post);
   }
 
-  update(id: number, post: any): Promise<any> {
-    return apiClient.patch(`/posts/${id}`, post)
+  update = async(id: number, post: any):Promise<IPost> => {
+    return await http.patch(`/posts/${id}`, post);
   }
 
-  delete(id: number): Promise<any> {
-    return apiClient.delete(`/posts/${id}`)
+  delete = async(id: number):Promise<IPost> => {
+    return await http.delete(`/posts/${id}`);
   }
 }
 
